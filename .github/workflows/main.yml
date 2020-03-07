@@ -1,13 +1,30 @@
-name: A workflow for my Hello World file
+name: o6e-first-workflow
 on: push
 
 jobs:
-  build:
-    name: Hello world action
+  sample1:
+    name: sample-action-1
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
       - uses: ./action-a
         with:
-          MY_NAME: "Mona"
+          MY_NAME: "oscar6echo"
+
+  sample2:
+    name: sample-action-2
+    runs-on: ubuntu-latest
+    steps:
+     # To use this repository's private action, you must check out the repository
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Hello world action step
+        uses: ./action-b
+        id: hello
+        with:
+          who-to-greet: 'Mona the Octocat'
+      # Use the output from the `hello` step
+      - name: Get the output time
+        run: echo "The time was ${{ steps.hello.outputs.time }}
+
 
